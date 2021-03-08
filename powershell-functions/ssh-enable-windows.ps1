@@ -1,0 +1,40 @@
+# get OpenSSH up and running on a windows pc
+# source: https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse#installing-openssh-from-the-settings-ui-on-windows-server-2019-or-windows-10-1809
+
+# Install OpenSSH (needs admin)
+Get-WindowsCapability -Online | ? Name -like 'OpenSSH*'
+'''
+This should return the following output:
+Name  : OpenSSH.Client~~~~0.0.1.0
+State : NotPresent
+Name  : OpenSSH.Server~~~~0.0.1.0
+State : NotPresent
+'''
+# Install the OpenSSH Client
+# Install the OpenSSH Server
+Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+'''
+Both of these should return the following output:
+Path          :
+Online        : True
+RestartNeeded : False
+'''
+# initial config  of ssh server
+Start-Service sshd
+# OPTIONAL but recommended:
+Set-Service -Name sshd -StartupType 'Automatic'
+# Confirm the Firewall rule is configured. It should be created automatically by setup.
+Get-NetFirewallRule -Name *ssh*
+# There should be a firewall rule named "OpenSSH-Server-In-TCP", which should be enabled
+# If the firewall does not exist, create one
+New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+
+# to manually enable ssh on windows:
+Start-Service sshd
+
+# to start ssh automatically:
+Set-Service -Name sshd -StartupType 'Automatic'
+
+# finally, when ready to connect:
+Ssh username@servername-or-ip

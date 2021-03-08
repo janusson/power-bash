@@ -1,0 +1,22 @@
+Notes on PowerShell extensions:
+
+### PowerShell script
+.ps1
+
+### Module file. Used for at least one advanced function in a package
+.psm1
+
+### Data file. Used commonly to control which .psm1 are loaded
+.psd1
+
+### PowerShell XML file for formatting and type systems
+.ps1xml
+
+### PowerShell configuration file
+.pssc
+
+### Role capability file used for JEA endpoint
+.psrc
+
+### PowerShell cmdlet xml file
+.cdxml

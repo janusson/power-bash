@@ -1,0 +1,24 @@
+        // Make changes here to the powershell.exe profile.
+        {
+            "name": "moreslaw",
+            "commandline": "powershell.exe -NoLogo",
+            "hidden": false,
+            "fontFace": "Source Code Pro",
+            "colorScheme": "gruvbox Dark",
+            "useAcrylic": true,
+            "acrylicOpacity": 0.9
+        },
+        {
+            "name": "terminal",
+            "commandline": "powershell.exe -NoLogo",
+            "closeOnExit": true,
+            "colorScheme": "gruvbox light",
+            // "cursorColor": "#FFFFFF",
+            // "cursorShape": "",
+            "fontSize": 24,
+            "padding": "5, 5, 5, 5",
+            "tabTitle": "Terminal",
+            "fontFace": "Source Code Pro",
+            "experimental.retroTerminalEffect": true,
+            "hidden": false
+        },
