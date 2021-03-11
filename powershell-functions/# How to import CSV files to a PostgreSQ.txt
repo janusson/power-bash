@@ -1,0 +1,41 @@
+# How to import CSV files to a PostgreSQL database:
+## Introduction
+ 
+The technique presented here will load the data in the 
+CSV file into a single PostgreSQL database.
+
+Creating The Table
+The first step towards importing CSV data into PostgreSQL is to create a table 
+that will hold the data, this can be done via the PostgreSQL CREATE TABLE 
+command. A column needs to be created for each field in the CSV file. 
+The CFDynamics site mentioned above lists the column names for the zip code 
+table, I decided to keep things simple and use the same column names suggested 
+by them.
+
+create table zip_codes (ZIP char(5), LATITUDE double precision, 
+LONGITUDE double precision, 
+CITY varchar, STATE char(2), COUNTY varchar, ZIP_CLASS varchar);
+ 
+Loading the Data
+Next, we need to load the data from the CSV file into the newly created table, 
+we can achieve this by using PostrgreSQL's COPY command. copy zip_codes from 
+'/path/to/csv/ZIP_CODES.txt' DELIMITERS ',' CSV;
+
+The first argument to the COPY command (zip_codes in this example) is the table
+ the data will be copied to. The second argument ('/path/to/csv/ZIP_CODES.txt')
+  is the path to the CSV file. We indicate the delimiter (comma, in this case)
+   by passing ',' to the DELIMITERS modifier of the COPY command.
+
+Last but not least, passing the CSV modifier to the COPY command lets it know 
+we are dealing with a CSV file, and lets PostgreSQL escape the data accordingly.
+ This was very handy for our CSV file, since all fields in the CSV were 
+ surrounded by double quotes, both character and numeric fields. PostgreSQL 
+ handled this gracefully, I had to do nothing special to take care of removing
+ the double quotes.
+
+Summary
+CSV files are very common since many software products provide CSV export 
+capabilities, including most spreadsheets and many web based applications 
+(very common in online banking). PostgreSQL's COPY command makes it very easy 
+to import data in CSV format into a database.
+

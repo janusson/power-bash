@@ -1,0 +1,12 @@
+# pylintrc file in root throws away default linting rules
+basic .pylintrc
+[MESSAGES CONTROL]
+disable=all
+enable=W,C,E # categories warnings, conventions, errors.
+
+check a requirements.txt file into your repo that lists package dependencies
+# pip install -r requirements.txt
+
+pip install -r requirements.txt
+generate with pip freeze
+
