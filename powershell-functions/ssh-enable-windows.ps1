@@ -10,6 +10,7 @@ State : NotPresent
 Name  : OpenSSH.Server~~~~0.0.1.0
 State : NotPresent
 '''
+
 # Install the OpenSSH Client
 # Install the OpenSSH Server
 Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
@@ -21,13 +22,14 @@ Online        : True
 RestartNeeded : False
 '''
 
-# initial config  of ssh server
+# initial configuration of SSH server
 
-# to manually enable ssh on windows:
+# To manually enable ssh on windows:
 Start-Service sshd
-# Confirm the Firewall rule is configured. It should be created automatically by setup.
+# Confirm the Firewall rule is configured. 
+# Should be created automatically by setup.
 Get-NetFirewallRule -Name *ssh*
-# There should be a firewall rule named "OpenSSH-Server-In-TCP", which should be enabled
+# Firewall rule named "OpenSSH-Server-In-TCP" should be enabled
 # If the firewall does not exist, create one
 New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
 
@@ -36,6 +38,7 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled Tru
 Set-Service -Name sshd -StartupType 'Automatic'
 
 # finally, when ready to connect:
+
 '''
 ssh <<username@servername-or-ip>>
 '''
